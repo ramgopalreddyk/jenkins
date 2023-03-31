@@ -8,8 +8,6 @@ node {
     def DEPLOYDIR='src'
     def TEST_LEVEL='RunLocalTests'
     def SF_INSTANCE_URL = env.SF_INSTANCE_URL
-
-
     def toolbelt = tool 'toolbelt'
 
 
