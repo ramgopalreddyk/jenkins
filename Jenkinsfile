@@ -45,7 +45,7 @@ node {
 		stage('create a changeset') {
 		    rc = command "${toolbelt}/sfdx sfpowerkit:project:diff --revisionfrom 0c9daff28f06182a45359a629445f00268a7dcdd  --revisionto 081e370138dbb581c5d7204753532f8f035dfdd4 --output DeltaChanges"
 		    cd DeltaChanges 
-		    rc =command "${toolbelt}/sfdx force:source:convert -d ../toDeploy
+		    rc =command "${toolbelt}/sfdx force:source:convert -d ../toDeploy"
 		    	
 				    	
 			if (rc != 0) {
