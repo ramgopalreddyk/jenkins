@@ -41,13 +41,13 @@ node {
 		}
 
 
-		// -------------------------------------------------------------------------
-		// Deploy metadata and execute unit tests.
-		// -------------------------------------------------------------------------
-
-		stage('Deploy and Run Tests') {
-		    rc = command "${toolbelt}/sfdx force:mdapi:deploy --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
-		    if (rc != 0) {
+		
+		stage('create a changeset') {
+		    rc = command "${toolbelt}/sfdx sfpowerkit:project:diff --revisionfrom 0c9daff28f06182a45359a629445f00268a7dcdd  --revisionto 081e370138dbb581c5d7204753532f8f035dfdd4 --output DeltaChanges"
+		    cd DeltaChanges && sfdx force:source:convert -d ../toDeploy
+		    	
+				    	
+			if (rc != 0) {
 			error 'Salesforce deploy and test run failed.'
 		    }
 		}
@@ -57,8 +57,8 @@ node {
 		// Example shows how to run a check-only deploy.
 		// -------------------------------------------------------------------------
 
-		//stage('Check Only Deploy') {
-		//    rc = command "${toolbelt}/sfdx force:mdapi:deploy --checkonly --wait 10 --deploydir ${DEPLOYDIR} --targetusername UAT --testlevel ${TEST_LEVEL}"
+		//stage('Run Local Tests') {
+		//    rc = command "${toolbelt}/sfdx force:mdapi:deploy -d path/to/outputdir --checkonly --wait 10 --targetusername xxx@xxx.com --testlevel RunLocalTests"
 		//    if (rc != 0) {
 		//        error 'Salesforce deploy failed.'
 		//    }
