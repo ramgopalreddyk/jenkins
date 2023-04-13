@@ -44,17 +44,10 @@ node {
 
 
 		
-		stage('create a changeset') {
+		stage('create diff') {
 		    rc = command "${toolbelt}/sfdx sfpowerkit:project:diff --revisionfrom 0c9daff28f06182a45359a629445f00268a7dcdd  --revisionto 081e370138dbb581c5d7204753532f8f035dfdd4 --output DeltaChanges"
-		   bat '''
-                        echo "Buils starting..."'
-                        CD  DeltaChanges 
-                        rc =command "${toolbelt}/sfdx force:source:convert -d ../toDeploy"
-                        ''' 
-		   // rc =command "${toolbelt}/sfdx force:source:convert -d ../toDeploy"
-		    	
-				    	
-			if (rc != 0) {
+		  
+		    if (rc != 0) {
 			error 'Salesforce deploy and test run failed.'
 		    }
 		}
